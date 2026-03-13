@@ -1,0 +1,70 @@
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openclaw-toolkit"
+version = "1.0.0"
+description = "开源机械爪 & 舵机控制工具箱"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "OpenClaw Team", email = "team@openclaw.ai"}
+]
+keywords = ["robotics", "servo", "claw", "arduino", "serial", "cli", "gui"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Home Automation",
+]
+dependencies = [
+    "pyserial>=3.5",
+    "PyYAML>=6.0",
+    "click>=8.0",
+]
+
+[project.optional-dependencies]
+gui = [
+    "PyQt6>=6.4",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-qt>=4.0",
+    "black>=23.0",
+    "flake8>=5.0",
+    "mypy>=1.0",
+    "pyinstaller>=5.0",
+]
+
+[project.scripts]
+openclaw-toolkit = "openclaw_toolkit:main"
+openclaw-gui = "gui.window:main"
+openclaw-cli = "cli.main:main"
+
+[project.urls]
+Homepage = "https://github.com/openclaw/openclaw-toolkit"
+Repository = "https://github.com/openclaw/openclaw-toolkit"
+Issues = "https://github.com/openclaw/openclaw-toolkit/issues"
+
+[tool.setuptools]
+packages = ["claw", "cli", "gui"]
+
+[tool.black]
+line-length = 100
+target-version = ["py38", "py39", "py310", "py311", "py312"]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
