@@ -3,6 +3,7 @@ name: Build OpenClaw Toolkit
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -25,9 +26,20 @@ jobs:
         pip install -r requirements.txt
         pip install pyinstaller
 
-    - name: Build GUI
+    - name: Build GUI (Windows)
+      if: matrix.os == 'windows-latest'
       run: |
-        pyinstaller -F -w -i app.ico -n OpenClawToolkit gui/main.py
+        pyinstaller -F -w --name OpenClawToolkit gui/window.py --hidden-import PyQt6 --collect-all PyQt6
+
+    - name: Build GUI (Linux)
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        pyinstaller -F -w --name OpenClawToolkit gui/window.py --hidden-import PyQt6 --collect-all PyQt6
+
+    - name: Build GUI (macOS)
+      if: matrix.os == 'macos-latest'
+      run: |
+        pyinstaller -F -w --name OpenClawToolkit gui/window.py --hidden-import PyQt6 --collect-all PyQt6
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
