@@ -391,7 +391,7 @@ class MainWindow(QMainWindow):
             self.status_bar.showMessage(f"已连接: {status.get('port')}")
             
         if "angle" in status:
-            self.angle_label.setText(f"{status['angle']}°"
+            self.angle_label.setText(f"{status['angle']}°")
             if not self.angle_slider.isSliderDown():
                 self.angle_slider.setValue(status['angle'])
                 
